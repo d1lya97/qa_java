@@ -10,19 +10,13 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LionTest {
 
     @Mock
     Feline feline;
-
-    @Test
-    public void testGetFamily() throws Exception {
-        Lion lion = new Lion(feline, "Самец");
-        Mockito.when(feline.getFamily()).thenReturn("Кошачьи");
-        assertEquals("Кошачьи", lion.getFamily());
-    }
 
     @Test
     public void testGetFood() throws Exception {
@@ -51,8 +45,13 @@ public class LionTest {
         assertTrue(!lion.doesHaveMane());
     }
 
-    @Test(expected = Exception.class)
-    public void testConstructorInvalidSex() throws Exception {
-        new Lion(feline, "Неверный пол");
+    @Test
+    public void testConstructorInvalidSex() {
+        try {
+            new Lion(feline, "Неверный пол");
+            fail("Expected Exception was not thrown");
+        } catch (Exception e) {
+            assertEquals("Используйте допустимые значения пола животного - самец или самка", e.getMessage());
+        }
     }
 }

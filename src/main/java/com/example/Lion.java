@@ -28,8 +28,4 @@ public class Lion {
     public List<String> getFood() throws Exception {
         return feline.getFood("Хищник");
     }
-
-    public String getFamily() {
-        return feline.getFamily();
-    }
 }
